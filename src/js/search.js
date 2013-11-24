@@ -2,13 +2,16 @@ var courses;
 var searchFields = ["title", "description", "name"];
 
 $(document).ready(function() {
-  $.getJSON("banner.json", function(data) {
+  $.getJSON("../data/banner.json", function(data) {
     console.log(data);
     courses = TAFFY(data);
   });
 });
 
 function query(term, semester) {
+  if (term == undefined) {
+    return [];
+  }
   var results = [];
   var terms = term.split(" ");
   for (var i = 0; i < searchFields.length; i++) {
