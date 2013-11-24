@@ -68,6 +68,33 @@ body {
   margin: 0px
 }
 
+.course-add-er {
+  width: 300px;
+  height: 250px;
+  position: absolute;
+  background: #F8F8F8;
+  border: 2px solid gray;
+}
+
+.add-er-input {
+  width: 240px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+
+.add-er-title {
+  text-align: center;
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.add-er-results {
+  width: 270px;
+  height: 150px;
+  margin: 15px;
+}
+
 h2 {
   padding: 10px;
 }
