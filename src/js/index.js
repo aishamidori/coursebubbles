@@ -31,11 +31,6 @@ function addListeners() {
     $("#course-add-er").removeClass("hidden-add-er");
     $("#course-add-er").css("top", rect.top - 150);
     $("#course-add-er").css("left", rect.right);
-    courseBubbles.searchTerm.subscribe(function(value) {
-      console.log("searchTerm updated!");
-      var results = query(value, "Spring");
-      courseBubbles.results(results);
-    });
   });
 
   /*$('.course').mouseup(function(e) {
@@ -48,5 +43,12 @@ $(document).ready(function() {
   courseBubbles = new CourseBubbles();
   ko.applyBindings(courseBubbles); 
   addListeners();
-  $(".course-add-er").hide();
+  courseBubbles.searchTerm.subscribe(function(value) {
+    console.log("searchTerm updated to " + value);
+    var results = query(value, "Spring");
+    console.log(results.length);
+    courseBubbles.results(results.slice(0, 3));
+    console.log(courseBubbles.results());
+    console.log("done querying");
+  });
 });

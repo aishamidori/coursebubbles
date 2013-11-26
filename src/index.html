@@ -18,11 +18,12 @@
     </div>
 
     </section>
-    <section id="course-add-er" class="hidden-add-er"> 
+    <section id="course-add-er" class="hidden-add-er">
       <h4 id="add-er-title">Search for a course</h4>
-      <input id="add-er-input" data-bind="value: searchTerm"> </input>
+      <input id="add-er-input" data-bind="value: searchTerm, valueUpdate: 'keyup'"> </input>
       <div id="add-er-results" data-bind="foreach: results">
-        <p data-bind="name"></p>
+        <p class="add-er-result" data-bind="text: name"></p>
+        <p class="add-er-result-desc" data-bind="text: description"></p>
       </div>
     </section>
     <footer id="credits">
