@@ -21,24 +21,16 @@ function CourseBubbles() {
                    ])
       }
   ]);
-  self.searchResults = ko.observableArray([]);
-
-  function updateResults(results) {
-    searchResults(results);
-  }
-
+  self.results = ko.observableArray([]);
+  self.searchTerm = ko.observable("");
 }
 
 function addListeners() {
   $('.course').mousedown(function(e) {
     var rect = e.target.getBoundingClientRect();
-    query($(e.target).text(), "Spring");
-    $("#schedule").append(buildQueryBox());
-    $(".course-add-er").css("top", rect.top - 150);
-    $(".course-add-er").css("left", rect.right);
-    $('.add-er-input').bind('input', function() { 
-      alert("got query " + $(this).val()); // get the current value of the input field.
-    });
+    $("#course-add-er").removeClass("hidden-add-er");
+    $("#course-add-er").css("top", rect.top - 150);
+    $("#course-add-er").css("left", rect.right);
   });
 
   /*$('.course').mouseup(function(e) {
@@ -47,18 +39,16 @@ function addListeners() {
   });*/
 }
 
-function buildQueryBox() {
-  return "<div class=\"course-add-er\">" 
-      + "<h4 class=\"add-er-title\">Search for a course</h4>"
-      + "<input class=\"add-er-input\" data-bind=\"value: searchTerm\"></input>"
-      + "<div class=\"add-er-results\" data-bind=\"foreach: results\">"
-        + "<p data-bind=\"name\"></p>"
-      + "</div>"
-    + "</div>";
-}
-
 $(document).ready(function() {
   courseBubbles = new CourseBubbles();
   ko.applyBindings(courseBubbles); 
   addListeners();
+  courseBubbles.searchTerm.subscribe(function(value) {
+    console.log("searchTerm updated to " + value);
+    var results = query(value, "Spring");
+    console.log(results.length);
+    courseBubbles.results(results.slice(0, 3));
+    console.log(courseBubbles.results());
+    console.log("done querying");
+  });
 });
