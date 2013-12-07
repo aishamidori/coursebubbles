@@ -15,7 +15,7 @@ body {
 }
 
 .smallerSchedule {
-  bottom: 250px !important;
+  bottom: 253px !important;
 }
 
 .cartExpanded {
@@ -73,10 +73,16 @@ body {
 
 }
 .toggle{
+  font: 14pt Serif bold;
+  padding: 5px;
   border: solid gray;
   position: absolute;
   left: 45%;
   bottom: 50px;
+}
+
+.toggleHide{
+  display: none !important;
 }
 
 .course {
