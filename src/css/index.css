@@ -8,25 +8,18 @@ body {
   margin-left: 3%;
   width: 97%;
   top: 100px;
-  bottom: 120px;
+  bottom: 75px;
   left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-#smallerSchedule {
-  position: absolute;
-  margin-left: 3%;
-  width: 97%;
-  top: 100px;
-  bottom: 50px;
-  left: 0;
-  overflow-y: scroll;
-  overflow-x: hidden;
+.smallerSchedule {
+  bottom: 250px !important;
 }
 
 .cartExpanded {
-  bottom: 150px;
+  display: block !important;
 }
 
 #credits {
@@ -57,6 +50,7 @@ body {
   height: 120px;
   /*display: none;*/
   padding-left: 20;
+  display: none;
 
 }
 .cart-title {

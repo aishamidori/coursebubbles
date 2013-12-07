@@ -82,7 +82,7 @@ $(document).ready(function() {
 });
 
 function toggleCart(){
-  $(".cart").css("display", ($(".cart").css("display") == "block" ? "none": "block"));
+  //$(".cart").css("display", ($(".cart").css("display") == "block" ? "none": "block"));
   $("#schedule").toggleClass("smallerSchedule");
   $(".cart").toggleClass("cartExpanded");
 }
