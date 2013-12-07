@@ -59,6 +59,9 @@ function addListeners() {
       $("#course-add-er").css("left", rect.right);
     }
   });
+  $("div.toggle").mousedown(function() {
+    toggleCart();
+  });
 }
 
 
@@ -78,7 +81,7 @@ $(document).ready(function() {
 });
 
 function toggleCart(){
-  var contentID = document.getElementById("cart");
-  contentID.style.display == "block" ? contentID.style.display = "none" : 
-      contentID.style.display = "block";
+  $(".cart").css("display", ($(".cart").css("display") == "block" ? "none": "block"));
+  $("#schedule").toggleClass("smallerSchedule");
+  $(".cart").toggleClass("cartExpanded");
 }
