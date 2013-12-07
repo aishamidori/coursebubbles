@@ -25,13 +25,20 @@ function CourseBubbles() {
 
   self.searchSemester = "";
   self.addCourse = function(result){
-    semester = _.find(courseBubbles.semesters(), function(sem) {
-      console.log(sem);
-      return (sem.name == self.searchSemester);
-    });
-    search = semester.courses.pop(); 
-    semester.courses.push(result);
-    semester.courses.push(search);
+    if (self.searchSemester == "Cart") {
+      search = self.cart.pop(); 
+      self.cart.push(result);
+      self.cart.push(search);
+    }
+    else {
+      semester = _.find(courseBubbles.semesters(), function(sem) {
+        console.log(sem);
+        return (sem.name == self.searchSemester);
+      });
+      search = semester.courses.pop(); 
+      semester.courses.push(result);
+      semester.courses.push(search);
+    }
     addListeners();
   };
 }
@@ -41,11 +48,14 @@ function addListeners() {
     console.log(e);
     if ($(e.currentTarget).hasClass("search")) {
       semester = $(e.currentTarget).parents('.semester');
-      courseBubbles.searchSemester = $($(semester[0]).children('h2')[0]).text();
-      console.log("searching with semester " + courseBubbles.searchSemester);
+      if ($(semester[0]).hasClass('semester')) {
+        courseBubbles.searchSemester = $($(semester[0]).children('h2')[0]).text();
+      } else {
+        courseBubbles.searchSemester = "Cart";
+      }
       var rect = e.target.getBoundingClientRect();
       $("#course-add-er").removeClass("hidden-add-er");
-      $("#course-add-er").css("top", rect.top - 150);
+      $("#course-add-er").css("top", rect.top - 100);
       $("#course-add-er").css("left", rect.right);
     }
   });

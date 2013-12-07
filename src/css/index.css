@@ -99,6 +99,7 @@ body {
   position: absolute;
   background: #F8F8F8;
   border: 2px solid gray;
+  z-index: 10;
 }
 
 .hidden-add-er {
@@ -150,4 +151,9 @@ body {
 
 h2 {
   padding: 10px;
+}
+
+ul {
+  list-style: none;
+  list-style-type: none;
 }
