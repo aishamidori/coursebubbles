@@ -26,6 +26,19 @@
         <p class="add-er-result-desc" data-bind="text: description"></p>
       </div>
     </section>
+    <div class="cart">
+      <h5 class="cart-title">Shopping Cart</h5>
+      <div class="course-list" data-bind="foreach: cart">
+
+        <span class="course">
+          <p data-bind="text: name"></p>
+        </span>
+
+      </div>
+    
+        
+    </div>
+    <button name="button" type="button" onclick= "toggleCart();">Shopping Cart</button>
     <footer id="credits">
     <p>Site design by Aisha Ferrazares, Ardra Hren, David Sasson  -  Fall 2013</p>
     </footer>
