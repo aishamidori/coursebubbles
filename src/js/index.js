@@ -10,7 +10,7 @@ function CourseBubbles() {
                    {name: "Law"},
                    {name: "Systems"},
                    {name: "Language"},
-                   {name: "Computer"}
+                   {name: "Computer"},
                    ])
       },
       {name:"Spring '14", 
@@ -23,6 +23,14 @@ function CourseBubbles() {
   ]);
   self.results = ko.observableArray([]);
   self.searchTerm = ko.observable("");
+
+  self.cart = ko.observableArray([
+              {name: "Economics"},
+              {name: "Gender"},
+              {name: "English"},
+            ]);
+
+
 }
 
 function addListeners() {
