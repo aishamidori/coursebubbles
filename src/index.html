@@ -5,19 +5,20 @@
   <body>
     <h1 id="schedule-title">Course Bubbles</h1>
     <section id="schedule" data-bind="foreach: semesters">
-    <div class="semester">
-      <h2 data-bind="text: name" class="semester-title"></h2>
-      <ul>
-        <li class="course-list" data-bind="foreach: courses">
+      <div class="semester">
+        <h2 data-bind="text: name" class="semester-title"></h2>
+        <ul>
+          <li class="course-list" data-bind="foreach: courses">
           <span class="course" data-bind="css : {search : name == 'Search'}">
             <p data-bind="text: name"></p>
           </span>
-        </li>
-    </ul>
-    </div>
+          </li>
+        </ul>
+      </div>
     </section>
     <section id="course-add-er" class="hidden-add-er">
       <h4 id="add-er-title">Search for a course</h4>
+      <img class="exit" src="../data/x.svg"></img>
       <input id="add-er-input" data-bind="value: searchTerm, valueUpdate: 'keyup'"> </input>
       <div id="add-er-results" data-bind="foreach: results">
         <p class="add-er-result" data-bind="text: title, click: $parent.addCourse"></p>
@@ -27,18 +28,17 @@
     <div class="cart">
       <h5 class="cart-title">Shopping Cart</h5>
       <ul>
-      <li class="course-list" data-bind="foreach: cart">
+        <li class="course-list" data-bind="foreach: cart">
         <span class="course" data-bind="css : {search : name == 'Search'}">
           <p data-bind="text: name"></p>
         </span>
-      </li>
-    </ul>
+        </li>
+      </ul>
     </div>
     <button name="button" type="button" onclick= "toggleCart();">Shopping Cart</button>
     <footer id="credits">
-    <p>Site design by Aisha Ferrazares, Ardra Hren, David Sasson  -  Fall 2013</p>
+      <p>Site design by Aisha Ferrazares, Ardra Hren, David Sasson  -  Fall 2013</p>
     </footer>
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="../libs/underscore-min.js"></script>
     <script src="../libs/taffy-min.js"></script>

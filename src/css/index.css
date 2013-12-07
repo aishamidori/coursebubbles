@@ -157,3 +157,11 @@ ul {
   list-style: none;
   list-style-type: none;
 }
+
+.exit {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 5px;
+  top: 5px;
+}

@@ -54,10 +54,14 @@ function addListeners() {
         courseBubbles.searchSemester = "Cart";
       }
       var rect = e.target.getBoundingClientRect();
-      $("#course-add-er").removeClass("hidden-add-er");
+      courseBubbles.searchTerm("");
       $("#course-add-er").css("top", rect.top - 100);
       $("#course-add-er").css("left", rect.right);
+      $("#course-add-er").removeClass("hidden-add-er");
     }
+  });
+  $(".exit").mousedown(function(e) {
+    $("#course-add-er").addClass("hidden-add-er");
   });
 }
 
@@ -71,9 +75,6 @@ $(document).ready(function() {
     var results = query(value, "Spring");
     console.log(results.length);
     courseBubbles.results(results.slice(0, 3));
-    console.log(courseBubbles.results());
-    console.log("done querying");
-    //addCourse(courseBubbles.searchSemester, results[0]);
   });
 });
 

@@ -25,20 +25,25 @@ function query(term, semester) {
       results = results.concat(result);
     }
   }
-  return rankResults(results);
+  return rankResults(results, semester);
 }
 
-function rankResults(results) {
+function rankResults(results, semester) {
   console.log("ranking results");
   var countedResults = {};
   var len = results.length;
   for (var i = 0; i < len; i++) {
     var result = results[i];
-    if (countedResults[result] > 0) {
-      countedResults[result] += 1;
-    } else {
-      countedResults[result] = 1;
-    }
+    /*if ((result.semesters.length == 0)
+        || (result.semesters[0].name == semester) 
+        || ((result.semesters.length > 0)
+          && (result.semesters[1].name == semester))) {*/
+      if (countedResults[result] > 0) {
+        countedResults[result] += 1;
+      } else {
+        countedResults[result] = 1;
+      }
+    //}
   }
   console.log("about to sort");
   return _.sortBy(results, function (result) {
