@@ -60,3 +60,9 @@ $(document).ready(function() {
     console.log("done querying");
   });
 });
+
+function toggleCart(){
+  var contentID = document.getElementById("cart");
+  contentID.style.display == "block" ? contentID.style.display = "none" : 
+      contentID.style.display = "block";
+}
