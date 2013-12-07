@@ -20,33 +20,9 @@ function CourseBubbles() {
                    {name: "English"},
                    ])
       }
-      {name:"Fall 14", 
-        courses: ko.observableArray([
-                   {name: "Economics"},
-                   {name: "Gender"},
-                   {name: "English"},
-                   ])
-      }
-      {name:"Spring '15", 
-        courses: ko.observableArray([
-                   {name: "Economics"},
-                   {name: "Gender"},
-                   {name: "English"},
-                   ])
-      }      
   ]);
   self.results = ko.observableArray([]);
   self.searchTerm = ko.observable("");
-  self.cart = ko.observableArray([
-    {name:"Shopping Cart", 
-        courses: ko.observableArray([
-                   {name: "Class1"},
-                   {name: "Class2"},
-                   {name: "Class3"},
-        ])
-    }
-  ]);
-
 }
 
 function addListeners() {
