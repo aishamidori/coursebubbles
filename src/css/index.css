@@ -8,7 +8,7 @@ body {
   margin-left: 3%;
   width: 97%;
   top: 100px;
-  bottom: 75px;
+  bottom: 50px;
   left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -190,4 +190,9 @@ ul {
   height: 20px;
   right: 5px;
   top: 5px;
+}
+
+#cart-exit {
+  right: 25px !important;
+  top: -45px !important;
 }
