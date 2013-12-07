@@ -66,6 +66,11 @@ function addListeners() {
   $("div.toggle").mousedown(function() {
     toggleCart();
   });
+
+  $( '.sortable' ).sortable({
+    connectWith: ".sortable"
+  })
+  $( '.sortable' ).disableSelection();
 }
 
 
