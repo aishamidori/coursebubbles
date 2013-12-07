@@ -34,10 +34,35 @@ body {
   height: 150px;
 }
 
+.cart {
+  position: absolute;
+  left: 0;
+  bottom: 80;  
+  width: 100%;
+  /*display: none;*/
+  padding-left: 20;
+
+}
+.cart-title {
+  border-top-width: 1px;
+  border-top-style: solid;
+  padding-top: 15px;
+  position: absolute;
+  padding-left: 20;
+  left: 10;
+  bottom: 80;
+  font: 12pt Sans-Serif;
+
+  font: 18pt Sans-Serif bold;
+  width: 100%;
+
+}
+
+
 .course {
   margin: 5px;
   padding: 10px;
-  font: 14pt Sans-Serif bold;
+  font: 14pt Serif bold;
   text-align: center;
   background: #F8F8F8; 
   color: black;
@@ -116,6 +141,12 @@ body {
   text-overflow: ellipsis;
   font: 10pt Sans-Serif;
 }
+
+.search {
+  border: 2px solid white;
+  color: gray;
+}
+
 
 h2 {
   padding: 10px;

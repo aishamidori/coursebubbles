@@ -5,27 +5,32 @@
   <body>
     <h1 id="schedule-title">Course Bubbles</h1>
     <section id="schedule" data-bind="foreach: semesters">
-
     <div class="semester">
       <h2 data-bind="text: name" class="semester-title"></h2>
       <div class="course-list" data-bind="foreach: courses">
-
-        <span class="course">
+        <span class="course" data-bind="css : {search : name == 'Search'}">
           <p data-bind="text: name"></p>
         </span>
-
       </div>
     </div>
-
     </section>
     <section id="course-add-er" class="hidden-add-er">
       <h4 id="add-er-title">Search for a course</h4>
       <input id="add-er-input" data-bind="value: searchTerm, valueUpdate: 'keyup'"> </input>
       <div id="add-er-results" data-bind="foreach: results">
-        <p class="add-er-result" data-bind="text: title"></p>
+        <p class="add-er-result" data-bind="text: title, click: $parent.addCourse"></p>
         <p class="add-er-result-desc" data-bind="text: description"></p>
       </div>
     </section>
+    <div class="cart">
+      <h5 class="cart-title">Shopping Cart</h5>
+      <div class="course-list" data-bind="foreach: cart">
+        <span class="course" data-bind="css : {search : name == 'Search'}">
+          <p data-bind="text: name"></p>
+        </span>
+      </div>
+    </div>
+    <button name="button" type="button" onclick= "toggleCart();">Shopping Cart</button>
     <footer id="credits">
     <p>Site design by Aisha Ferrazares, Ardra Hren, David Sasson  -  Fall 2013</p>
     </footer>
