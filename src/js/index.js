@@ -85,4 +85,6 @@ function toggleCart(){
   //$(".cart").css("display", ($(".cart").css("display") == "block" ? "none": "block"));
   $("#schedule").toggleClass("smallerSchedule");
   $(".cart").toggleClass("cartExpanded");
+  $(".toggle").toggleClass("toggleHide");
+  //add an exit button to shopping cart
 }
