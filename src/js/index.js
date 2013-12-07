@@ -62,6 +62,7 @@ function addListeners() {
   });
   $(".exit").mousedown(function(e) {
     $("#course-add-er").addClass("hidden-add-er");
+  });
   $("div.toggle").mousedown(function() {
     toggleCart();
   });
