@@ -21,8 +21,10 @@
       <img id="course-exit" class="exit" src="../data/x.svg"></img>
       <input id="add-er-input" data-bind="value: searchTerm, valueUpdate: 'keyup'"> </input>
       <div id="add-er-results" data-bind="foreach: results">
-        <p class="add-er-result" data-bind="text: title, click: $parent.addCourse"></p>
-        <p class="add-er-result-desc" data-bind="text: description"></p>
+        <span class="add-er-result">
+          <p class="add-er-result-title" data-bind="text: fullTitle, click: $parent.addCourse"></p>
+          <p class="add-er-result-desc" data-bind="text: description"></p>
+      </span>
       </div>
     </section>
     <div class="cart">
