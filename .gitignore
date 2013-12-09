@@ -3,3 +3,4 @@ libs/*
 .*.swp
 *.log
 C:\\*
+*.bak

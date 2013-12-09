@@ -9,7 +9,7 @@
       <h2 data-bind="text: name" class="semester-title"></h2>
         <div id="course-list">
         <ul class="sortable" data-bind="foreach: courses">
-          <li class="course" data-bind="css : {search : name == 'Search'}">
+          <li class="course" data-bind="css : {search : (name == 'Search'), noprereqs : prereqs}">
             <p data-bind="text: name"></p>
           </li>
         </ul>
@@ -32,7 +32,7 @@
       <img id="cart-exit" class="exit" src="../data/x.svg"></img>
       <div id="course-list">
         <ul class="sortable" data-bind="foreach: cart">
-          <li class="course" data-bind="css : {search : name == 'Search'}">
+          <li class="course" data-bind="css : {search : name == 'Search', noprereqs : prereqs}">
             <p data-bind="text: name"></p>
           </li>
         </ul>

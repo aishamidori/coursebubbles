@@ -7,25 +7,29 @@ function CourseBubbles() {
   self.semesters = ko.observableArray([
       {name:"Fall '13", 
         courses: ko.observableArray([
-                   {name: "Search"},
+                   {name: "Search", 
+                    prereqs: ko.observable(false)},
                    ])
       },
       {name:"Spring '14", 
         courses: ko.observableArray([
-                   {name: "Search"},
+                   {name: "Search",
+                    prereqs: ko.observable(false)}
                    ])
       }
   ]);
   self.results = ko.observableArray([]);
   self.searchTerm = ko.observable("");
   self.cart = ko.observableArray([
-      {name: "Search"},
+      {name: "Search",
+       prereqs: ko.observable(false)}
   ]);
 
   self.searchSemester = "";
   self.addCourse = function(result){
     //TODO: Do we want this to take you to more information first - like in the
     //mock ups?
+    result.prereqs = ko.observable(false);
     if (alreadyInSchedule(result, self.searchSemester)) {
       alert("You've already added this course!");
       return;
@@ -39,17 +43,18 @@ function CourseBubbles() {
       var semester = _.find(courseBubbles.semesters(), function(sem) {
         return (sem.name == self.searchSemester);
       });
-      if (figurePrerequisites(result)) {
-        result.prereqs = true;
-      } else {
-        result.prereqs = false;
+      if (!figurePrerequisites(result)) {
+        console.log("doesn't have the prereqs!");
+        result.prereqs(true);
       }
       var search = semester.courses.pop(); 
       semester.courses.push(result);
       semester.courses.push(search);
 
     }
+    update(self.searchSemester);
     addListeners();
+    $("#course-add-er").addClass("hidden-add-er");
     //TODO: Add checks for - prerequisites, already in cart
     //TODO: How to delete courses?
   };
@@ -58,7 +63,7 @@ function CourseBubbles() {
 function alreadyInSchedule(course) {
   var courses;
   if (courseBubbles.searchSemester == "Cart") {
-    courses = self.cart();
+    courses = courseBubbles.cart();
   } else {
     courses = _.find(courseBubbles.semesters(), function(sem) {
       return (sem.name == courseBubbles.searchSemester);
@@ -101,6 +106,7 @@ $(document).ready(function() {
         return (this.name + ": " + this.title);
       }, results[i]);
     }
+    console.log(results);
     courseBubbles.results(results.slice(0, 15));
   });
   $(".exit#course-exit").mousedown(function(e) {
@@ -132,46 +138,31 @@ function toggleCart(){
 }
 
 function figurePrerequisites(course) {
-  var desc = course.description;
-  var prereqIndex = desc.indexOf("Prerequisite");
-  if (prereqIndex == -1) {
-    return true;
-  }
+  return true;
+}
 
-  var prerequisites = [];
-  prereqIndex = desc.indexOf(" ", prereqIndex);
-  var dept = desc.substring(prereqIndex + 1, prereqIndex + 5);
-
-  var pattern = /\d{4}|or|and/gi;
-  var toparse = desc.substring(prereqIndex + 6).match(pattern);
-  var courses = [];
-  for (var i = 0; i < toparse.length; i++) {
-    switch (toparse[i]) {
-      case "and":
-        break;
-      case "or":
-        if (courses.length == 0) {
-          toparse[i] = true;
+function update(changedSemester) {
+  console.log("update called");
+  var sem_history = courseBubbles.semesters();
+  var courses_history = []
+  var after = false;
+  for (var i = 0; i < sem_history.length; i++) {
+    sem = sem_history[i]; 
+    console.log(sem.name);
+    console.log(changedSemester);
+    if (sem.name == changedSemester) {
+      console.log("found added semester");
+      after = true;
+    } else if (after == true) {
+      console.log("already passed added semester");
+      var courses = sem.courses();
+      for (var j = 0; j < courses.length; j++) {
+        if (!figurePrerequisites(courses[j])) {
+          courses[j].prereqs(true);
+        } else {
+          courses[j].prereqs(false);
         }
-        courses.push(dept + toparse[i + 1]);
-        var has = hasOr(courses);
-        for (var j = i + 1 - courses.length; j < i + 2; j++) {  
-          toparse[j] = has;
-        }
-        i++;
-        courses = [];
-        break;
-      default:
-        courses.push(dept + toparse[i]);
+      }
     }
   }
-  return true;
-}
-
-function hasAnd(and, history) {
-  return false;
-}
-
-function hasOr(or, history) {
-  return true;
 }

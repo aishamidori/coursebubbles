@@ -99,6 +99,10 @@ body {
   border: 2px solid gray;
 }
 
+.noprereqs {
+  border: 2px solid red !important;
+}
+
 .course-list{
   height: 100%;
   width: 90%;
