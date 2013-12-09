@@ -1,10 +1,41 @@
 var numDisplayed = 3;
 var courseBubbles;
 
+var previousCourses = [
+    ["CLAS1120G", "CLPS0020", "FREN0600", "JUDS0050A"],
+    ["CLPS0040", "CLPS0200", "CLPS0500", "ENGL0180", "TAPS0030"],
+    ["CLPS0030", "CLPS0900", "CSCI0150", "ENGL1180B", "POLS1120"],
+    ["CLPS1590", "CSCI0160", "CSCI0220", "POLS2025"],
+    ["AFRI0570", "CSCI0081", "CSCI0330", "CSCI1950I", "MATH0520"]
+  ];
 
 function CourseBubbles() {
   var self = this;
   self.semesters = ko.observableArray([
+      {name:"Fall '11", 
+        courses: ko.observableArray([
+                   {name: "Search", 
+                    prereqs: ko.observable(false)},
+                   ])
+      },
+      {name:"Spring '12", 
+        courses: ko.observableArray([
+                   {name: "Search",
+                    prereqs: ko.observable(false)}
+                   ])
+      },
+      {name:"Fall '12", 
+        courses: ko.observableArray([
+                   {name: "Search", 
+                    prereqs: ko.observable(false)},
+                   ])
+      },
+      {name:"Spring '13", 
+        courses: ko.observableArray([
+                   {name: "Search",
+                    prereqs: ko.observable(false)}
+                   ])
+      },
       {name:"Fall '13", 
         courses: ko.observableArray([
                    {name: "Search", 
@@ -18,6 +49,25 @@ function CourseBubbles() {
                    ])
       }
   ]);
+  for (var i = 0; i < previousCourses.length; i++) {
+    var semester = self.semesters()[i];
+    console.log("semester " + i);
+    var search = semester.courses.pop();
+    var courses = previousCourses[i];
+    var limit = courses.length;
+    var resultingCourses = [];
+    for (var j = 0; j < limit; j++) {
+      resultingCourses.push({
+        name: courses[j],
+        prereqs: ko.observable(false)
+      });
+      console.log("adding course " + j);
+    }
+    semester.courses(resultingCourses);
+    semester.courses.push(search);
+    resultingCourses = [];
+  }
+
   self.results = ko.observableArray([]);
   self.searchTerm = ko.observable("");
   self.cart = ko.observableArray([
@@ -86,7 +136,10 @@ function addListeners() {
       }
       var rect = e.target.getBoundingClientRect();
       courseBubbles.searchTerm("");
-      $("#course-add-er").css("top", rect.top - 100);
+      console.log(window.innerHeight);
+      console.log(rect.top);
+      var boxtop = Math.min(rect.top, window.innerHeight - 300);
+      $("#course-add-er").css("top", boxtop);
       $("#course-add-er").css("left", rect.right);
       $("#course-add-er").removeClass("hidden-add-er");
     }
@@ -136,6 +189,13 @@ function toggleCart(){
   $(".toggle").toggleClass("toggleHide");
   //TODO:Make Shopping Cart button pretty!!
 }
+
+var prereqs = {
+    "CSCI0330": [["CSCI0150", "CSCI0170", "CSCI0190"]],
+    "CSCI0320": [["CSCI0150", "CSCI0170", "CSCI0190"]],
+    "CSCI1230": [["CSCI0330", "CSCI0310"], ["CSCI0530", "MATH0520", "MATH0540"]],
+    "CSCI2240": [["CSCI1230"]]
+  };
 
 function figurePrerequisites(course) {
   return true;
