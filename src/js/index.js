@@ -140,7 +140,7 @@ function addListeners() {
       console.log(rect.top);
       var boxtop = Math.min(rect.top, window.innerHeight - 300);
       $("#course-add-er").css("top", boxtop);
-      $("#course-add-er").css("left", rect.right);
+      $("#course-add-er").css("left", rect.left);
       $("#course-add-er").removeClass("hidden-add-er");
     }
     //TODO: else { open window with more information about course
