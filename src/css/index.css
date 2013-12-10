@@ -77,11 +77,12 @@ body {
 }
 .toggle{
   font: 14pt Serif bold;
+  border-radius: 10px;
   padding: 5px;
   border: solid gray 1px;
   background: lightgrey;
   position: absolute;
-  left: 45%;
+  left: 43%;
   bottom: 50px;
 }
 
@@ -140,6 +141,8 @@ body {
   position: absolute;
   background: #F8F8F8;
   border: 2px solid gray;
+  border-radius: 20px;
+  /*left: -20px;*/
   z-index: 10;
 }
 
