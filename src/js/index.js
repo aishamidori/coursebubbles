@@ -135,6 +135,7 @@ function CourseBubbles() {
     });
     //TODO: Add 'data-bind="click: remove"' to your removal button
     //TODO: remove course from semester
+    semester.courses.remove(course);
     
   }
 }

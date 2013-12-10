@@ -44,7 +44,7 @@ body {
 
 .semester {
   margin-top: 30px;
-  height: 150px;
+  height: 160px;
 }
 
 .cart {
@@ -142,7 +142,6 @@ body {
   background: #F8F8F8;
   border: 2px solid gray;
   border-radius: 20px;
-  /*left: -20px;*/
   z-index: 10;
 }
 
@@ -221,4 +220,13 @@ h2 {
 #cart-exit {
   right: 25px !important;
   top: -45px !important;
+}
+#course-exit {
+
+  position: relative;
+  width: 20px;
+  height: 20px;
+  right: -48px !important;
+  top: -5px;
+  margin-bottom: -18px;
 }
