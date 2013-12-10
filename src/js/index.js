@@ -15,36 +15,56 @@ function CourseBubbles() {
       {name:"Fall '11", 
         courses: ko.observableArray([
                    {name: "Search", 
+                    sem: "Fall '11",
                     prereqs: ko.observable(false)},
                    ])
       },
       {name:"Spring '12", 
         courses: ko.observableArray([
                    {name: "Search",
+                    sem: "Spring '12",
                     prereqs: ko.observable(false)}
                    ])
       },
       {name:"Fall '12", 
         courses: ko.observableArray([
                    {name: "Search", 
+                    sem: "Fall '12",
                     prereqs: ko.observable(false)},
                    ])
       },
       {name:"Spring '13", 
         courses: ko.observableArray([
                    {name: "Search",
+                    sem: "Spring '13",
                     prereqs: ko.observable(false)}
                    ])
       },
       {name:"Fall '13", 
         courses: ko.observableArray([
                    {name: "Search", 
+                    sem: "Fall '13",
                     prereqs: ko.observable(false)},
                    ])
       },
       {name:"Spring '14", 
         courses: ko.observableArray([
                    {name: "Search",
+                    sem: "Spring '14",
+                    prereqs: ko.observable(false)}
+                   ])
+      },
+      {name:"Fall '14", 
+        courses: ko.observableArray([
+                   {name: "Search", 
+                    sem: "Fall '14",
+                    prereqs: ko.observable(false)},
+                   ])
+      },
+      {name:"Spring '15", 
+        courses: ko.observableArray([
+                   {name: "Search",
+                    sem: "Spring '15",
                     prereqs: ko.observable(false)}
                    ])
       }
@@ -72,6 +92,7 @@ function CourseBubbles() {
   self.searchTerm = ko.observable("");
   self.cart = ko.observableArray([
       {name: "Search",
+       sem: "Cart",
        prereqs: ko.observable(false)}
   ]);
 
@@ -103,11 +124,19 @@ function CourseBubbles() {
 
     }
     update(self.searchSemester);
-    addListeners();
     $("#course-add-er").addClass("hidden-add-er");
     //TODO: Add checks for - prerequisites, already in cart
     //TODO: How to delete courses?
   };
+
+  self.remove = function(course) {
+    var semester = _.find(courseBubbles.semesters(), function(sem) {
+      return (sem.name == courseBubbles.searchSemester);
+    });
+    //TODO: Add 'data-bind="click: remove"' to your removal button
+    //TODO: remove course from semester
+    
+  }
 }
 
 function alreadyInSchedule(course) {
@@ -125,33 +154,27 @@ function alreadyInSchedule(course) {
   });
 }
 
-function addListeners() {
-  $('.course').mousedown(function(e) {
-    if ($(e.currentTarget).hasClass("search")) {
-      var semester = $(e.currentTarget).parents('.semester');
-      if ($(semester[0]).hasClass('semester')) {
-        courseBubbles.searchSemester = $($(semester[0]).children('h2')[0]).text();
-      } else {
-        courseBubbles.searchSemester = "Cart";
-      }
-      var rect = e.target.getBoundingClientRect();
-      courseBubbles.searchTerm("");
-      console.log(window.innerHeight);
-      console.log(rect.top);
-      var boxtop = Math.min(rect.top, window.innerHeight - 300);
-      $("#course-add-er").css("top", boxtop);
-      $("#course-add-er").css("left", rect.right);
-      $("#course-add-er").removeClass("hidden-add-er");
-    }
-    //TODO: else { open window with more information about course
-  });
+var courseClick = function(course, e) {
+  console.log(course);
+  console.log(foo);
+  if (course.name == "Search") {
+    courseBubbles.searchSemester = course.sem;
+    var rect = e.target.getBoundingClientRect();
+    courseBubbles.searchTerm("");
+    console.log(window.innerHeight);
+    console.log(rect.top);
+    var boxtop = Math.min(rect.top - 120, window.innerHeight - 300);
+    $("#course-add-er").css("top", boxtop);
+    $("#course-add-er").css("left", rect.left - 11);
+    $("#course-add-er").removeClass("hidden-add-er");*/
+  } else {
+    // TODO: Pop up the course info box
+  }
 }
-
 
 $(document).ready(function() {
   courseBubbles = new CourseBubbles();
   ko.applyBindings(courseBubbles); 
-  addListeners();
   courseBubbles.searchTerm.subscribe(function(value) {
     var results = query(value, "Spring");
     for (var i = 0; i < Math.min(results.length, 15); i++) {
@@ -178,8 +201,6 @@ $(document).ready(function() {
     connectWith: ".sortable"
   })
   $( '.sortable' ).disableSelection();
-  //TODO: Why does dragging to the shopping cart make you scroll all the way
-  //down? 
   //TODO: Why do courses bounce when you drag them? weird css issue...?
 });
 
@@ -187,7 +208,6 @@ function toggleCart(){
   $("#schedule").toggleClass("smallerSchedule");
   $(".cart").toggleClass("cartExpanded");
   $(".toggle").toggleClass("toggleHide");
-  //TODO:Make Shopping Cart button pretty!!
 }
 
 var prereqs = {
@@ -198,8 +218,35 @@ var prereqs = {
   };
 
 function figurePrerequisites(course) {
-  return true;
+  if (prereqs[course] == undefined) {
+    return true;
+  }
+  var sem_history = courseBubbles.semesters();
+  var courses_history = []
+  for (var i = 0; i < sem_history.length; i++) {
+    sem = sem_history[i]; 
+    if (sem.name == courseBubbles.currentSemester) {
+      break;
+    }
+    var courses = sem.courses();
+    for (var j = 0; j < courses.length; j++) {
+      courses_history.push(courses[j].name);
+    }
+  }
+  return _.reduce(prereqs[course], function(result, or) {
+    if (hasOr(or, courses_history)) {
+      return result;
+    } else {
+      return false;
+    };
+  }, true);
 }
+
+function hasOr(or, history) {
+  console.log("finding or " + or + " in history " + history);
+  return (_.intersection(or, history).length > 0);
+}
+   
 
 function update(changedSemester) {
   console.log("update called");
