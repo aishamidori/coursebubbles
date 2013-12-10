@@ -156,7 +156,6 @@ function alreadyInSchedule(course) {
 
 var courseClick = function(course, e) {
   console.log(course);
-  console.log(foo);
   if (course.name == "Search") {
     courseBubbles.searchSemester = course.sem;
     var rect = e.target.getBoundingClientRect();
@@ -166,7 +165,7 @@ var courseClick = function(course, e) {
     var boxtop = Math.min(rect.top - 120, window.innerHeight - 300);
     $("#course-add-er").css("top", boxtop);
     $("#course-add-er").css("left", rect.left - 11);
-    $("#course-add-er").removeClass("hidden-add-er");*/
+    $("#course-add-er").removeClass("hidden-add-er");
   } else {
     // TODO: Pop up the course info box
   }

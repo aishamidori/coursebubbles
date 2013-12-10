@@ -5,19 +5,19 @@
   <body>
     <h1 id="schedule-title">Course Bubbles</h1>
     <section id="schedule" data-bind="foreach: semesters">
+    <div class="semesters">
     <div class="semester">
       <h2 data-bind="text: name" class="semester-title"></h2>
-        <div id="course-list">
-        <ul class="sortable" data-bind="foreach: courses">
-          <li class="course" data-bind="css : {
-                                            search : (name == 'Search'), 
-                                            noprereqs : prereqs}, 
-                                          click: courseClick">
-            <p data-bind="text: name"></p>
-          </li>
-        </ul>
-      </div>
+      <ul class="sortable course-list" data-bind="foreach: courses">
+        <li class="course" data-bind="css : {
+                                          search : (name == 'Search'), 
+                                          noprereqs : prereqs}, 
+                                        click: courseClick">
+          <p data-bind="text: name"></p>
+        </li>
+      </ul>
     </div>
+  </div>
     </section>
     <section id="course-add-er" class="hidden-add-er">
       <h4 id="add-er-title">Search for a course</h4>
@@ -33,13 +33,12 @@
     <div class="cart">
       <h5 class="cart-title">Shopping Cart</h5>
       <img id="cart-exit" class="exit" src="../data/x.svg"></img>
-      <div id="course-list">
-        <ul class="sortable" data-bind="foreach: cart">
-          <li class="course" data-bind="css : {search : name == 'Search', noprereqs : prereqs}">
-            <p data-bind="text: name"></p>
-          </li>
-        </ul>
-      </div>
+      <ul class="sortable course-list" data-bind="foreach: cart">
+        <li class="course" data-bind="css : {search : name == 'Search',
+        noprereqs : prereqs}, click: courseClick">
+          <p data-bind="text: name"></p>
+        </li>
+      </ul>
     </div>
     <div class ="toggle">
       Shopping Cart

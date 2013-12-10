@@ -12,8 +12,10 @@ body {
   left: 0;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.semesters {
   max-height: 765px;
-  padding-bottom: 100px;
 }
 
 .smallerSchedule {
@@ -40,11 +42,6 @@ body {
   padding-top: 5px;
 }
 
-#sortable {
-  list-style-type: none;
-
-}
-
 .semester {
   margin-top: 30px;
   height: 150px;
@@ -56,7 +53,6 @@ body {
   bottom: 80;  
   width: 100%;
   height: 120px;
-  /*display: none;*/
   padding-left: 20;
   display: none;
 
@@ -98,6 +94,7 @@ body {
 }
 
 .course {
+  float: left;
   margin: 5px;
   padding: 10px;
   font: 14pt Serif bold;
@@ -116,6 +113,9 @@ body {
 }
 
 .course-list{
+  display: inline-block;
+  list-style: none;
+  list-style-type: none;
   height: 100%;
   width: 90%;
 }
@@ -208,11 +208,6 @@ body {
 
 h2 {
   padding: 10px;
-}
-
-ul {
-  list-style: none;
-  list-style-type: none;
 }
 
 .exit {
