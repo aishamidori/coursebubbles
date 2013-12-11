@@ -8,8 +8,7 @@
     <div class="semesters">
     <div class="semester">
       <h2 data-bind="text: name" class="semester-title"></h2>
-        <div id="course-list">
-        <ul class="sortable" data-bind="foreach: courses">
+        <ul class="sortable course-list" data-bind="foreach: courses">
           <li class="course" data-bind="css : {
                                             search : (name == 'Search'), 
                                             noprereqs : prereqs}, 
@@ -19,7 +18,6 @@
             <p class="prereqs" data-bind="style: { display: prereqs ? 'inline-block' : 'none' }, text: missing"></p>
           </li>
         </ul>
-      </div>
     </div>
   </div>
     </section>
