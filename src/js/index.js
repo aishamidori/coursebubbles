@@ -2,11 +2,11 @@ var numDisplayed = 3;
 var courseBubbles;
 
 var previousCourses = [
-    ["CLAS1120G", "CLPS0020", "FREN0600", "JUDS0050A"],
-    ["CLPS0040", "CLPS0200", "CLPS0500", "ENGL0180", "TAPS0030"],
-    ["CLPS0030", "CLPS0900", "CSCI0150", "ENGL1180B", "POLS1120"],
-    ["CLPS1590", "CSCI0160", "CSCI0220", "POLS2025"],
-    ["AFRI0570", "CSCI0081", "CSCI0330", "CSCI1950I", "MATH0520"]
+    ["CLAS 1120G", "CLPS 0020", "FREN 0600", "JUDS 0050A"],
+    ["CLPS 0040", "CLPS 0200", "CLPS 0500", "ENGL 0180", "TAPS 0030"],
+    ["CLPS 0030", "CLPS 0900", "CSCI 0150", "ENGL 1180B", "POLS 1120"],
+    ["CLPS 1590", "CSCI 0160", "CSCI 0220", "POLS 2025"],
+    ["AFRI 0570", "CSCI 0081", "CSCI 0330", "CSCI 1950I", "MATH 0520"]
   ];
 
 function CourseBubbles() {
@@ -16,56 +16,64 @@ function CourseBubbles() {
         courses: ko.observableArray([
                    {name: "Search", 
                     sem: "Fall '11",
-                    prereqs: ko.observable(false)},
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Spring '12", 
         courses: ko.observableArray([
                    {name: "Search",
                     sem: "Spring '12",
-                    prereqs: ko.observable(false)}
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Fall '12", 
         courses: ko.observableArray([
                    {name: "Search", 
                     sem: "Fall '12",
-                    prereqs: ko.observable(false)},
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Spring '13", 
         courses: ko.observableArray([
                    {name: "Search",
                     sem: "Spring '13",
-                    prereqs: ko.observable(false)}
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Fall '13", 
         courses: ko.observableArray([
                    {name: "Search", 
                     sem: "Fall '13",
-                    prereqs: ko.observable(false)},
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Spring '14", 
         courses: ko.observableArray([
                    {name: "Search",
                     sem: "Spring '14",
-                    prereqs: ko.observable(false)}
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Fall '14", 
         courses: ko.observableArray([
                    {name: "Search", 
                     sem: "Fall '14",
-                    prereqs: ko.observable(false)},
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       },
       {name:"Spring '15", 
         courses: ko.observableArray([
                    {name: "Search",
                     sem: "Spring '15",
-                    prereqs: ko.observable(false)}
+                    prereqs: ko.observable(false),
+                    missing: ""}
                    ])
       }
   ]);
@@ -79,7 +87,8 @@ function CourseBubbles() {
     for (var j = 0; j < limit; j++) {
       resultingCourses.push({
         name: courses[j],
-        prereqs: ko.observable(false)
+        prereqs: ko.observable(false),
+        missing: ""
       });
       console.log("adding course " + j);
     }
@@ -93,7 +102,8 @@ function CourseBubbles() {
   self.cart = ko.observableArray([
       {name: "Search",
        sem: "Cart",
-       prereqs: ko.observable(false)}
+       prereqs: ko.observable(false),
+       missing: ""}
   ]);
 
   self.searchSemester = "";
@@ -101,6 +111,7 @@ function CourseBubbles() {
     //TODO: Do we want this to take you to more information first - like in the
     //mock ups?
     result.prereqs = ko.observable(false);
+    result.missing = "";
     if (alreadyInSchedule(result, self.searchSemester)) {
       alert("You've already added this course!");
       return;
@@ -114,8 +125,13 @@ function CourseBubbles() {
       var semester = _.find(courseBubbles.semesters(), function(sem) {
         return (sem.name == self.searchSemester);
       });
-      if (!figurePrerequisites(result)) {
-        console.log("doesn't have the prereqs!");
+      var missing = figurePrerequisites(result);
+      if (missing != true) {
+        var msg = "Missing ";
+        for (var i = 0; i < missing.length; i++) {
+          msg += missing[i] + " or ";
+        }
+        result.missing = msg.substring(0, msg.length - 4);
         result.prereqs(true);
       }
       var search = semester.courses.pop(); 
@@ -153,6 +169,7 @@ var courseRemove = function(course, e) {
   });
   //TODO: remove course from semester
   semester.courses.remove(course);
+  update(semester);
 }
   
 
@@ -164,7 +181,7 @@ var courseClick = function(course, e) {
     courseBubbles.searchTerm("");
     console.log(window.innerHeight);
     console.log(rect.top);
-    var boxtop = Math.min(rect.top - 120, window.innerHeight - 300);
+    var boxtop = Math.max(Math.min(rect.top - 120, window.innerHeight - 300), 30);
     $("#course-add-er").css("top", boxtop);
     $("#course-add-er").css("left", rect.left - 11);
     $("#course-add-er").removeClass("hidden-add-er");
@@ -218,7 +235,7 @@ function toggleCart(){
 var prereqs = {
     "CSCI 0330": [["CSCI 0150", "CSCI 0170", "CSCI 0190"]],
     "CSCI 0320": [["CSCI 0150", "CSCI 0170", "CSCI 0190"]],
-    "CSCI 1230": [["CSCI 0330", "CSCI 0310"], ["CSCI 0530", "MATH0520", "MATH0540"]],
+    "CSCI 1230": [["CSCI 0330", "CSCI 0310"], ["CSCI 0530", "MATH 0520", "MATH 0540"]],
     "CSCI 2240": [["CSCI 1230"]]
   };
 
@@ -244,7 +261,9 @@ function figurePrerequisites(course) {
     if (hasOr(or, courses_history)) {
       return result;
     } else {
-      return false;
+      console.log("didn't have or");
+      console.log(or);
+      return or;
     };
   }, true);
 }
@@ -271,9 +290,18 @@ function update(changedSemester) {
       console.log("already passed added semester");
       var courses = sem.courses();
       for (var j = 0; j < courses.length; j++) {
-        if (!figurePrerequisites(courses[j])) {
+        console.log(courses[j]);
+        var missing = figurePrerequisites(courses[j]);
+        if (missing != true) {
+          console.log("didn't have prereqs");
+          var msg = "Missing ";
+          for (var k = 0; k < missing.length; k++) {
+            msg += missing[k] + " or ";
+          }
+          result.missing = msg.substring(0, msg.length - 4);
           courses[j].prereqs(true);
         } else {
+          console.log("had prereqs");
           courses[j].prereqs(false);
         }
       }

@@ -16,6 +16,7 @@
                                           click: courseClick">  
             <img id="course-exit" src="../data/x.svg" data-bind="style : { display : (name == 'Search') ? 'none' : 'inline-block' }, click: courseRemove" ></img>                                     
             <p data-bind="text: name"></p>
+            <p class="prereqs" data-bind="style: { display: prereqs ? 'inline-block' : 'none' }, text: missing"></p>
           </li>
         </ul>
       </div>

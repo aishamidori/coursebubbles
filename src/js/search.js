@@ -1,5 +1,5 @@
 var courses;
-var searchFields = ["name", "title", "description"];
+var searchFields = ["title", "name", "description"];
 
 $(document).ready(function() {
   $.getJSON("../data/banner.json", function(data) {
@@ -47,20 +47,26 @@ function rankResults(results, semester) {
   var len = searches.length;
   var courseSet = [];
   for (var i = 0; i < len; i++) {
-    console.log("key = " + searches[i]);
+    //console.log("key = " + searches[i]);
     var search = results[searches[i]];
-    console.log(search);
+    //console.log(search);
     for (var j = 0; j < search.length; j++) {
       var result = search[j];
+      //console.log("RESULT = " + result.name);
+      if (result.name == "CSCI 2240") {
+        //printCond(result, semester);
+      }
       if (((result.semesters).length == 0)
-          || ((result.semesters[0]).name == semester) 
+          || ((result.semesters[0]).name.split(" ")[0] == semester.split(" ")[0]) 
           || (((result.semesters).length > 1)
-            && ((result.semesters[1]).name == semester))) {
-        if (countedResults[result.name] == undefined) {
+            && ((result.semesters[1]).name.split(" ")[0] == semester.split(" ")[0]))) {
+        //console.log("countedResults[" + result.name + "] = " countedResults[result.name]);
+        if (countedResults[result.name] === undefined) {
           countedResults[result.name] = [];
           courseSet.push(result);
         }
         countedResults[result.name].push(searches[i]);
+        //console.log("pushed " + searches[i]);
       }
     }
   }
@@ -69,4 +75,15 @@ function rankResults(results, semester) {
   });
   return toReturn;
 }
+
+var printCond = function(result, semester) {
+  console.log("((result.semesters).length == 0) " + ((result.semesters).length == 0));
+  console.log("((result.semesters[0]).name == semester) " + ((result.semesters[0]).name == semester));
+  console.log("((result.semesters).length > 1) " + ((result.semesters).length > 1));
+  console.log("((result.semesters[1]).name == semester) " + ((result.semesters[1]).name == semester));
+  console.log(" 0 || 1 || (2 && 3) = " + (((result.semesters).length == 0)
+          || ((result.semesters[0]).name == semester) 
+          || (((result.semesters).length > 1)
+            && ((result.semesters[1]).name == semester))));
+} 
 
