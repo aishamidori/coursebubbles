@@ -133,7 +133,6 @@ function CourseBubbles() {
     var semester = _.find(courseBubbles.semesters(), function(sem) {
       return (sem.name == courseBubbles.searchSemester);
     });
-    //TODO: Add 'data-bind="click: remove"' to your removal button
     //TODO: remove course from semester
     semester.courses.remove(course);
     
@@ -185,7 +184,7 @@ $(document).ready(function() {
     console.log(results);
     courseBubbles.results(results.slice(0, 15));
   });
-  $(".exit#course-exit").mousedown(function(e) {
+  $(".exit#add-er-exit").mousedown(function(e) {
     $("#course-add-er").addClass("hidden-add-er");
   });
   $(".exit#cart-exit").mousedown(function(e) {

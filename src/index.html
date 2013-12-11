@@ -8,20 +8,23 @@
     <div class="semesters">
     <div class="semester">
       <h2 data-bind="text: name" class="semester-title"></h2>
-      <ul class="sortable course-list" data-bind="foreach: courses">
-        <li class="course" data-bind="css : {
-                                          search : (name == 'Search'), 
-                                          noprereqs : prereqs}, 
-                                        click: courseClick">
-          <p data-bind="text: name"></p>
-        </li>
-      </ul>
+        <div id="course-list">
+        <ul class="sortable" data-bind="foreach: courses">
+          <li class="course" data-bind="css : {
+                                            search : (name == 'Search'), 
+                                            noprereqs : prereqs}, 
+                                          click: courseClick">  
+            <img id="course-exit" src="../data/x.svg" data-bind="click: remove" ></img>                                     
+            <p data-bind="text: name"></p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
     </section>
     <section id="course-add-er" class="hidden-add-er">
       <h4 id="add-er-title">Search for a course</h4>
-      <img id="course-exit" class="exit" src="../data/x.svg"></img>
+      <img id="add-er-exit" class="exit" src="../data/x.svg"></img>
       <input id="add-er-input" data-bind="value: searchTerm, valueUpdate: 'keyup'"> </input>
       <div id="add-er-results" data-bind="foreach: results">
         <span class="add-er-result">
