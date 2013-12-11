@@ -186,7 +186,22 @@ var courseClick = function(course, e) {
     $("#course-add-er").css("left", rect.left - 11);
     $("#course-add-er").removeClass("hidden-add-er");
   } else {
-    // TODO: Pop up the course info box
+    var rect = e.target.getBoundingClientRect();
+    var boxtop = Math.max(Math.min(rect.top - 120, window.innerHeight - 300), 30);
+    $("#course-info-box").css("top", boxtop);
+    $("#course-info-box").css("left", rect.left - 11);
+    $("#course-info-box").removeClass("hidden-info");
+
+    if (course.title === undefined) {
+      course = _.find(query(course.name, "Spring").concat(query(course.name, "Fall")), function(howaboutthis) {
+        return howaboutthis.name == course.name;
+      });
+      $(".course-info-title").text(course.name + ": " + course.title);
+      $(".course-info-desc").text(course.description);
+    } else {
+      $(".course-info-title").text(course.name + ": " + course.title);
+      $(".course-info-desc").text(course.description);
+    }
   }
 }
 
@@ -214,6 +229,9 @@ $(document).ready(function() {
     $("#schedule").toggleClass("smallerSchedule");
     $(".cart").toggleClass("cartExpanded");
     $(".toggle").toggleClass("toggleHide");
+  });
+  $(".exit#course-info-exit").mousedown(function(e) {
+    $("#course-info-box").addClass("hidden-info");
   });
   $("div.toggle").mousedown(function() {
     toggleCart();

@@ -135,6 +135,15 @@ body {
   margin: 0px
 }
 
+#course-info-box {
+  width: 300px;
+  position: absolute;
+  background: #F8F8F8;
+  border: 2px solid gray;
+  border-radius: 20px;
+  z-index: 10;
+}
+
 #course-add-er {
   width: 300px;
   height: 300px;
@@ -143,6 +152,10 @@ body {
   border: 2px solid gray;
   border-radius: 20px;
   z-index: 10;
+}
+
+.hidden-info {
+  visibility: hidden;
 }
 
 .hidden-add-er {
@@ -172,6 +185,16 @@ body {
   overflow-y: scroll;
 }
 
+.course-info {
+  margin: 5px;
+  padding-top: 15px;
+  background: #DBDBDB;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  border: 1px solid lightgray;
+  display: inline-block;
+}
+
 .add-er-result {
   margin: 5px;
   background: #DBDBDB;
@@ -183,11 +206,25 @@ body {
   width: 220px;
 }
 
+.course-info-title {
+  margin: 5px;
+  /*margin-bottom: 5px;*/
+  padding-right: 15px;
+  font: 12pt Sans-Serif;
+  font-weight: bold;
+}
+
 .add-er-result-title {
   margin: 0px;
   margin-bottom: 5px;
   font: 10pt Sans-Serif;
   font-weight: bold;
+}
+
+.course-info-desc {
+  margin: 5px;
+  font: 10pt Sans-Serif;
+  overflow-y: scroll;
 }
 
 .add-er-result-desc {
@@ -215,6 +252,11 @@ h2 {
   height: 20px;
   right: 5px;
   top: 5px;
+}
+
+#course-info-exit {
+  right: 7px;
+  top: 7px;
 }
 
 #cart-exit {
