@@ -128,16 +128,6 @@ function CourseBubbles() {
     //TODO: Add checks for - prerequisites, already in cart
     //TODO: How to delete courses?
   };
-
-  self.remove = function(course) {
-    var semester = _.find(courseBubbles.semesters(), function(sem) {
-      return (sem.name == courseBubbles.searchSemester);
-    });
-    //TODO: Add 'data-bind="click: remove"' to your removal button
-    //TODO: remove course from semester
-    semester.courses.remove(course);
-    
-  }
 }
 
 function alreadyInSchedule(course) {
@@ -154,6 +144,17 @@ function alreadyInSchedule(course) {
     return found == course; 
   });
 }
+
+var courseRemove = function(course, e) {
+  var semester = _.find(courseBubbles.semesters(), function(sem) {
+    return _.some(sem.courses(), function(currCourse) {
+      return (course == currCourse);
+    });
+  });
+  //TODO: remove course from semester
+  semester.courses.remove(course);
+}
+  
 
 var courseClick = function(course, e) {
   console.log(course);
@@ -185,8 +186,12 @@ $(document).ready(function() {
     console.log(results);
     courseBubbles.results(results.slice(0, 15));
   });
-  $(".exit#course-exit").mousedown(function(e) {
-    $("#course-add-er").addClass("hidden-add-er");
+  $(".exit#add-er-exit").mousedown(function(e) {
+  courseBubbles.semesters.subscribe(function(value) {
+    var lastSem = value[value.length];
+    update(lastSem.courses()[lastSem.courses().length]);
+  });
+  $("#course-add-er").addClass("hidden-add-er");
   });
   $(".exit#cart-exit").mousedown(function(e) {
     $("#schedule").toggleClass("smallerSchedule");
@@ -211,14 +216,16 @@ function toggleCart(){
 }
 
 var prereqs = {
-    "CSCI0330": [["CSCI0150", "CSCI0170", "CSCI0190"]],
-    "CSCI0320": [["CSCI0150", "CSCI0170", "CSCI0190"]],
-    "CSCI1230": [["CSCI0330", "CSCI0310"], ["CSCI0530", "MATH0520", "MATH0540"]],
-    "CSCI2240": [["CSCI1230"]]
+    "CSCI 0330": [["CSCI 0150", "CSCI 0170", "CSCI 0190"]],
+    "CSCI 0320": [["CSCI 0150", "CSCI 0170", "CSCI 0190"]],
+    "CSCI 1230": [["CSCI 0330", "CSCI 0310"], ["CSCI 0530", "MATH0520", "MATH0540"]],
+    "CSCI 2240": [["CSCI 1230"]]
   };
 
 function figurePrerequisites(course) {
-  if (prereqs[course] == undefined) {
+  console.log("figuring out prereqs");
+  console.log(course.name);
+  if (prereqs[course.name] == undefined) {
     return true;
   }
   var sem_history = courseBubbles.semesters();
@@ -233,7 +240,7 @@ function figurePrerequisites(course) {
       courses_history.push(courses[j].name);
     }
   }
-  return _.reduce(prereqs[course], function(result, or) {
+  return _.reduce(prereqs[course.name], function(result, or) {
     if (hasOr(or, courses_history)) {
       return result;
     } else {
